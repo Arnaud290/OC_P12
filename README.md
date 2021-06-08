@@ -11,18 +11,18 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
 ## Installation
 
-### 1 - Installation of PostgreSQL (on Linux UBUNTU with sudo)
+### 1 - Installation of PostgreSQL and packages for psycopg2 driver (on Linux UBUNTU with sudo)
 
-    command : apt install postgresql postgresql-client
+    command : apt install postgresql postgresql-client libpq-dev python3-dev build-essential python3-psycopg2
 
     command : systemctl enable --now postgresql
 
     at /etc/postgresql/{postgreSQL_version}/main/postgresql.conf
     delete # before " listen_addresses "
-    update " listen_addresses = '*' " 
+    update " listen_addresses = '127.0.0.1' " 
 
     at /etc/postgresql/{postgreSQL_version}/main/pg_hba.conf
-    update " host    all             all             {ip_loop}/24            md5 " 
+    update " host    all             all             127.0.0.1/32            md5 " 
     
     command : systemctl restart postgresql
 
