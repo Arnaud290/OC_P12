@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'client.apps.ClientConfig',
     'contract.apps.ContractConfig',
+    'contact.apps.ContactConfig',
     'event.apps.EventConfig'
 ]
 
