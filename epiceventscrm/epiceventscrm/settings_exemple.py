@@ -33,15 +33,17 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'contact.apps.ContactConfig',
+    'client.apps.ClientConfig',
+    'contract.apps.ContractConfig',
+    'event.apps.EventConfig',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'client.apps.ClientConfig',
-    'contract.apps.ContractConfig',
-    'contact.apps.ContactConfig',
-    'event.apps.EventConfig'
+    'django.contrib.staticfiles',    
 ]
+
+AUTH_USER_MODEL = 'contact.Contact'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
