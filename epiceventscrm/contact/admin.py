@@ -1,31 +1,28 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
-from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import Contact
 
 
 class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
     model = Contact
     list_display = (
         'username',
         'email',
         'is_active',
         'post',
-        'mobile'
+        'mobile',
+        'last_login'
     )
     list_filter = (
-        'username',
-        'email',
         'is_active',
         'post',
-        'mobile'
+        'is_superuser',
+        'last_login'
     )
     fieldsets = (
         (
-            None,
+            'Profil',
             {'fields': ('email', 'password', 'post')}
         ),
         (
@@ -34,7 +31,8 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
     add_fieldsets = (
-        (None, 
+        (
+            None,
             {
                 'classes': ('wide',),
                 'fields': (
@@ -54,6 +52,7 @@ class CustomUserAdmin(UserAdmin):
     )
     search_fields = ('email',)
     ordering = ('email',)
+
 
 admin.site.register(Contact, CustomUserAdmin)
 admin.site.unregister(Group)
