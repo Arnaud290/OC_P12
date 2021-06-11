@@ -12,13 +12,8 @@ class ClientViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def get_queryset(self):
-  
-        client_list = [
-            client for client in Client.objects.filter(
-                sales_contact_id=self.request.user
-            )
-        ]
-        return client_list
+        user = self.request.user
+        return Client.objects.filter(sales_contact_id=user)
 
     def perform_create(self, serializer):
         serializer.save(sales_contact_id=self.request.user)
