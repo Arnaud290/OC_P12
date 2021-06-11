@@ -1,4 +1,5 @@
 from django.db import models
+from contact.models import Contact
 
 
 class Client(models.Model):
@@ -10,6 +11,11 @@ class Client(models.Model):
     company_name = models.CharField(max_length=250)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
+    sales_contact_id = models.ForeignKey(
+        Contact,
+        on_delete=models.DO_NOTHING,
+        default=1
+    )
 
     def __str__(self):
         client = self.first_name + ' ' +\
