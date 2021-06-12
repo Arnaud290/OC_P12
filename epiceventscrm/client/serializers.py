@@ -10,3 +10,11 @@ class ClientSerializer(serializers.ModelSerializer):
 
         model = Client
         fields = '__all__'
+
+class ClientListSerializer(serializers.ModelSerializer):
+    
+
+    class Meta:
+
+        model = Client
+        fields = ['id', 'first_name', 'last_name', 'company_name']

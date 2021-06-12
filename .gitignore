@@ -2,3 +2,4 @@ env/
 epiceventscrm/epiceventscrm/settings.py
 __pycache__/
 *.pyc
+.vscode/
