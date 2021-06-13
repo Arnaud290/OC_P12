@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, filters
 from client.models import Client
 from event.models import Event
 from client.serializers import ClientSerializer, ClientListSerializer
@@ -14,6 +14,8 @@ class ClientViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated,
         IsCommercialOrReadOnly
     ]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['last_name', 'email']
 
     def get_queryset(self):
         user = self.request.user
@@ -21,9 +23,14 @@ class ClientViewSet(viewsets.ModelViewSet):
             clients_id = [
                 event.client_id.id for event in\
                 Event.objects.filter(support_contact_id=user)
+            ] 
+        if user.post == 'COMMERCIAL':
+            clients_id = [
+                client.id for client in\
+                Client.objects.filter(sales_contact_id=user)
             ]    
-            return Client.objects.filter(id__in=clients_id) 
-        return Client.objects.filter(sales_contact_id=user)
+        return Client.objects.filter(id__in=clients_id) 
+     
 
     def get_serializer_class(self):
         if self.action == 'list':
