@@ -2,10 +2,7 @@ from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, permissions, filters
 from contract.models import Contract
-from contract.serializers import (
-    ContractListSerializer,
-    ContractSerializer
-)
+from contract.serializers import ContractListSerializer,ContractSerializer
 from contract.permissions import IsCommercial
 
 
@@ -13,10 +10,7 @@ class ContractViewSet(viewsets.ModelViewSet):
 
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-        IsCommercial
-    ]
+    permission_classes = [permissions.IsAuthenticated, IsCommercial]
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter,

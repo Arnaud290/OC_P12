@@ -10,10 +10,7 @@ class ClientViewSet(viewsets.ModelViewSet):
 
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-        IsCommercialOrReadOnly
-    ]
+    permission_classes = [permissions.IsAuthenticated, IsCommercialOrReadOnly]
     filter_backends = [filters.SearchFilter]
     search_fields = ['last_name', 'email']
 
@@ -21,13 +18,15 @@ class ClientViewSet(viewsets.ModelViewSet):
         user = self.request.user
         if user.post == 'SUPPORT':
             clients_id = [
-                event.client_id.id for event in\
-                Event.objects.filter(support_contact_id=user)
+                event.client_id.id for event in Event.objects.filter(
+                    support_contact_id=user
+                )
             ] 
         if user.post == 'COMMERCIAL':
             clients_id = [
-                client.id for client in\
-                Client.objects.filter(sales_contact_id=user)
+                client.id for client in Client.objects.filter(
+                    sales_contact_id=user
+                )
             ]    
         return Client.objects.filter(id__in=clients_id) 
      
