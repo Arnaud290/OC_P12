@@ -4,6 +4,7 @@ from contract import views
 
 router = SimpleRouter()
 router.register(r'contract', views.ContractViewSet)
+router.register(r'status_contract', views.StatusViewSet)
 urlpatterns = [
     path('', include(router.urls)),
 ]

@@ -1,10 +1,10 @@
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
-from event import views
+from contact import views
 
 router = SimpleRouter()
-router.register(r'', views.EventViewSet)
-router.register(r'status_event', views.StatusViewSet)
+router.register(r'', views.ContactViewSet)
+
 urlpatterns = [
     path('', include(router.urls)),
 ]

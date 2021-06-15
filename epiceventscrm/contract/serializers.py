@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from contract.models import Contract
+from contract.models import Contract, Status
 from client.models import Client
 
 
@@ -30,3 +30,11 @@ class ContractListSerializer(serializers.ModelSerializer):
 
         model = Contract
         fields = ['id', 'company_name', 'date_created']
+
+
+class StatusSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+
+        model = Status
+        fields = '__all__'

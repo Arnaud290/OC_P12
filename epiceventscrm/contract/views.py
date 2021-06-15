@@ -1,16 +1,20 @@
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, permissions, filters
-from contract.models import Contract
-from contract.serializers import ContractListSerializer,ContractSerializer
-from contract.permissions import IsCommercial
+from contract.models import Contract, Status
+from contract.serializers import (
+    ContractListSerializer,
+    ContractSerializer,
+    StatusSerializer
+)
+from contract.permissions import IsAdminOrCommercial, IsAdminOrCommercialReadOnly
 
 
 class ContractViewSet(viewsets.ModelViewSet):
 
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
-    permission_classes = [permissions.IsAuthenticated, IsCommercial]
+    permission_classes = [permissions.IsAuthenticated, IsAdminOrCommercial]
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter,
@@ -34,7 +38,9 @@ class ContractViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return Contract.objects.filter(sales_contact_id=user) 
+        if user.post == 'COMMERCIAL':
+            return Contract.objects.filter(sales_contact_id=user)
+        return Contract.objects.filter()
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -43,3 +49,13 @@ class ContractViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(sales_contact_id=self.request.user)
+
+
+class StatusViewSet(viewsets.ModelViewSet):
+    
+    queryset = Status.objects.all()
+    serializer_class = StatusSerializer
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsAdminOrCommercialReadOnly
+    ]

@@ -21,14 +21,16 @@ class ClientViewSet(viewsets.ModelViewSet):
                 event.client_id.id for event in Event.objects.filter(
                     support_contact_id=user
                 )
-            ] 
+            ]
+            return Client.objects.filter(id__in=clients_id) 
         if user.post == 'COMMERCIAL':
             clients_id = [
                 client.id for client in Client.objects.filter(
                     sales_contact_id=user
                 )
             ]    
-        return Client.objects.filter(id__in=clients_id) 
+            return Client.objects.filter(id__in=clients_id) 
+        return Client.objects.all()
      
 
     def get_serializer_class(self):

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.views import exception_handler
 from contract.models import Contract
-from event.models import Event
+from event.models import Event, Status
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -28,7 +28,6 @@ class EventSerializer(serializers.ModelSerializer):
 
 class EventSupportSerializer(serializers.ModelSerializer):
 
-
     class Meta:
 
         model = Event
@@ -44,3 +43,11 @@ class EventListSerializer(serializers.ModelSerializer):
 
         model = Event
         fields = ['id', 'company_name', 'date_created']
+
+
+class StatusSerializer:
+
+    class Meta:
+    
+        model = Status
+        exclude = '__all__'

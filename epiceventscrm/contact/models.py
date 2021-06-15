@@ -12,7 +12,6 @@ class Contact(AbstractUser):
     mobile = models.CharField(max_length=20)
 
     def __str__(self):
-        contact = self.first_name + ' ' +\
-            self.last_name + ' ' + self.email
+        contact = self.first_name + ' ' + self.last_name + ' '
         return contact
 

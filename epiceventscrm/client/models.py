@@ -13,8 +13,8 @@ class Client(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
     sales_contact_id = models.ForeignKey(
         Contact,
-        on_delete=models.DO_NOTHING,
-        default=1
+        on_delete=models.SET_NULL,
+        null=True
     )
 
     def __str__(self):

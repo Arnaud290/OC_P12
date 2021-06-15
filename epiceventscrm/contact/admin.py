@@ -23,7 +23,17 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (
             'Profil',
-            {'fields': ('email', 'password', 'post')}
+            {
+                'fields': (
+                    'username',
+                    'first_name',
+                    'last_name',
+                    'email',
+                    'mobile',
+                    'password',
+                    'post'
+                )
+            }
         ),
         (
             'Permissions',
