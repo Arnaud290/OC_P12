@@ -9,5 +9,6 @@ urlpatterns = [
     path('client/', include('client.urls')),
     #/contract, /status_contract
     path('', include('contract.urls')),
-    path('event/', include('event.urls')),
+    #/event, /status_event
+    path('', include('event.urls')),
 ]

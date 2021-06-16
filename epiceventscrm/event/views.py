@@ -8,6 +8,7 @@ from event.serializers import (
     StatusSerializer
 )
 from event.permissions import IsAdminOrCommercialOrSupport, IsAdminOrReadOnly
+from event.filters import EventFilter
 
 
 class EventViewSet(viewsets.ModelViewSet):
@@ -18,6 +19,7 @@ class EventViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated,
         IsAdminOrCommercialOrSupport
     ]
+    filter_class = EventFilter
 
     def get_queryset(self):
         user = self.request.user
@@ -37,7 +39,7 @@ class EventViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         contract = Contract.objects.get(pk=self.request.data['contract_id'])
-        serializer.save(client_id=contract.client_id, status = True)
+        serializer.save(client_id=contract.client_id)
 
 
 class StatusViewSet(viewsets.ModelViewSet):

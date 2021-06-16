@@ -45,9 +45,9 @@ class EventListSerializer(serializers.ModelSerializer):
         fields = ['id', 'company_name', 'date_created']
 
 
-class StatusSerializer:
+class StatusSerializer(serializers.ModelSerializer):
 
     class Meta:
     
         model = Status
-        exclude = '__all__'
+        fields = '__all__'
