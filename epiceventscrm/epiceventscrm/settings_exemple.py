@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os 
 from pathlib import Path
 from datetime import timedelta
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'contact.apps.ContactConfig',
     'client.apps.ClientConfig',
     'contract.apps.ContractConfig',
+    'log_viewer',
 ]
 
 AUTH_USER_MODEL = 'contact.Contact'
@@ -128,7 +129,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -148,7 +148,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
-    ]
+    ],
 }
 
 SIMPLE_JWT = {
@@ -156,3 +156,47 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
 }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(name)-12s %(levelname)-8s %(message)s'
+        },
+        'file': {
+            'format': '[{levelname}] {asctime} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'formatter': 'file',
+            'filename': 'log/console.log'
+        }
+    },
+    'loggers': {
+        '': {
+            'level': 'INFO',
+            'handlers': ['console', 'file']
+        },
+        'django.request': {
+            'level': 'INFO',
+            'handlers': ['console', 'file']
+        }
+    }
+}
+
+
+LOG_VIEWER_FILES = ['debug.log']
+LOG_VIEWER_FILES_PATTERN = 'debug*'
+LOG_VIEWER_FILES_DIR = 'log'
+LOG_VIEWER_MAX_READ_LINES = 1000
+LOG_VIEWER_PAGE_LENGTH = 25
+LOG_VIEWER_PATTERNS = [']OFNI[', ']GUBED[', ']GNINRAW[', ']RORRE[', ']LACITIRC[']

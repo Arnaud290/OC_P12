@@ -3,3 +3,4 @@ epiceventscrm/epiceventscrm/settings.py
 __pycache__/
 *.pyc
 .vscode/
+epiceventscrm/log/*.log
