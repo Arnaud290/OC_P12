@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.views import exception_handler
 from contract.models import Contract
 from event.models import Event, Status
 
@@ -16,7 +15,7 @@ class EventSerializer(serializers.ModelSerializer):
     def validate(self, data):
         user = self.context.get("request").user
         contract = [
-            contract for contract in\
+            contract for contract in
             Contract.objects.filter(sales_contact_id=user)
         ]
         if data['contract_id'] not in contract:
@@ -32,7 +31,7 @@ class EventSupportSerializer(serializers.ModelSerializer):
 
         model = Event
         exclude = ['contract_id', 'support_contact_id', 'client_id']
-       
+
 
 class EventListSerializer(serializers.ModelSerializer):
 
@@ -48,6 +47,6 @@ class EventListSerializer(serializers.ModelSerializer):
 class StatusSerializer(serializers.ModelSerializer):
 
     class Meta:
-    
+
         model = Status
         fields = '__all__'

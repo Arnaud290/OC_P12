@@ -11,8 +11,8 @@ class ClientSerializer(serializers.ModelSerializer):
         model = Client
         fields = '__all__'
 
+
 class ClientListSerializer(serializers.ModelSerializer):
-    
 
     class Meta:
 

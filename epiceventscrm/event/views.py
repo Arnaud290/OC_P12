@@ -25,7 +25,7 @@ class EventViewSet(viewsets.ModelViewSet):
         user = self.request.user
         contract = Contract.objects.filter(sales_contact_id=user)
         if user.post == 'SUPPORT':
-            return Event.objects.filter(support_contact_id=user) 
+            return Event.objects.filter(support_contact_id=user)
         if user.post == 'COMMERCIAL':
             return Event.objects.filter(contract_id__in=contract)
         return Event.objects.all()
@@ -33,8 +33,8 @@ class EventViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'list':
             return EventListSerializer
-        if self.request.user.post == 'SUPPORT'and self.action != 'retrieve':
-                return EventSupportSerializer
+        if self.request.user.post == 'SUPPORT' and self.action != 'retrieve':
+            return EventSupportSerializer
         return EventSerializer
 
     def perform_create(self, serializer):
@@ -43,7 +43,7 @@ class EventViewSet(viewsets.ModelViewSet):
 
 
 class StatusViewSet(viewsets.ModelViewSet):
-    
+
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
     permission_classes = [

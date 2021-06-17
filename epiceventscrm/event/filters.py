@@ -3,7 +3,7 @@ from event.models import Event
 
 
 class EventFilter(FilterSet):
-    
+
     last_name = CharFilter(
         field_name='client_id__last_name', lookup_expr='icontains'
     )
@@ -13,7 +13,7 @@ class EventFilter(FilterSet):
     email = CharFilter(
         field_name='client_id__email', lookup_expr='icontains'
     )
-    date_from= DateTimeFilter(
+    date_from = DateTimeFilter(
         field_name="event_date", lookup_expr='gte'
     )
     date_to = DateTimeFilter(

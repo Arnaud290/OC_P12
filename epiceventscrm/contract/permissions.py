@@ -8,7 +8,7 @@ class IsAdminOrCommercial(permissions.BasePermission):
 
 
 class IsAdminOrCommercialReadOnly(permissions.BasePermission):
-    
+
     def has_permission(self, request, view):
         if view.action == 'list':
             return request.user.post in ['COMMERCIAL', 'ADMIN']

@@ -14,4 +14,3 @@ class Contact(AbstractUser):
     def __str__(self):
         contact = self.first_name + ' ' + self.last_name + ' '
         return contact
-

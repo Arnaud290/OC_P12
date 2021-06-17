@@ -8,6 +8,7 @@ from contract.serializers import (
 from contract.permissions import IsAdminOrCommercial, IsAdminOrCommercialReadOnly
 from contract.filters import ContractFilter
 
+
 class ContractViewSet(viewsets.ModelViewSet):
 
     queryset = Contract.objects.all()
@@ -23,7 +24,7 @@ class ContractViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         if self.action == 'list':
-            return  ContractListSerializer
+            return ContractListSerializer
         return ContractSerializer
 
     def perform_create(self, serializer):
@@ -31,7 +32,7 @@ class ContractViewSet(viewsets.ModelViewSet):
 
 
 class StatusViewSet(viewsets.ModelViewSet):
-    
+
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
     permission_classes = [

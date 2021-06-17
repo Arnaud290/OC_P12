@@ -9,12 +9,14 @@ class ContactSerializer(serializers.ModelSerializer):
         model = Contact
         exclude = '__all__'
 
+
 class ContactretrieveSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
 
         model = Contact
         exclude = ['password', 'groups', 'user_permissions']
+
 
 class ContactListSerializer(serializers.ModelSerializer):
 

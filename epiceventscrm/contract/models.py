@@ -7,7 +7,7 @@ class Status(models.Model):
     status_name = models.CharField(max_length=20)
 
     def __str__(self):
-        return  self.status_name
+        return self.status_name
 
     class Meta:
         verbose_name_plural = 'Status'
@@ -33,6 +33,6 @@ class Contract(models.Model):
     )
 
     def __str__(self):
-        contract = str(self.id) + ' ' +self.client_id.company_name + ' ' +\
+        contract = str(self.id) + ' ' + self.client_id.company_name + ' ' + \
             str(self.date_created.strftime('%d %m %Y')) + ' '
         return contract

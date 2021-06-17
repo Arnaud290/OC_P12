@@ -33,7 +33,7 @@ class ContractListSerializer(serializers.ModelSerializer):
 
 
 class StatusSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
 
         model = Status
