@@ -193,7 +193,6 @@ LOGGING = {
     }
 }
 
-
 LOG_VIEWER_FILES = ['debug.log']
 LOG_VIEWER_FILES_PATTERN = 'debug*'
 LOG_VIEWER_FILES_DIR = 'log'
