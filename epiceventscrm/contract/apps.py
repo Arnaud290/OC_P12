@@ -1,3 +1,4 @@
+"""Contract application module"""
 from django.apps import AppConfig
 
 

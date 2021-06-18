@@ -1,9 +1,13 @@
+"""Event search filtering module"""
 from django_filters import FilterSet, CharFilter, DateTimeFilter
 from event.models import Event
 
 
 class EventFilter(FilterSet):
-
+    """
+    Searches can be made with the client's first name,
+    name and email and the date of creation
+    """
     last_name = CharFilter(
         field_name='client_id__last_name', lookup_expr='icontains'
     )

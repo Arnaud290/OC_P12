@@ -1,10 +1,11 @@
+"""Admin page module"""
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from .models import Contact
 
 
-class CustomUserAdmin(UserAdmin):
+class CustomContactAdmin(UserAdmin):
     model = Contact
     list_display = (
         'username',
@@ -64,5 +65,5 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
 
-admin.site.register(Contact, CustomUserAdmin)
+admin.site.register(Contact, CustomContactAdmin)
 admin.site.unregister(Group)

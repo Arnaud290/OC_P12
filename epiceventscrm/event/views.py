@@ -1,3 +1,4 @@
+"""Event views module"""
 from rest_framework import viewsets, permissions
 from event.models import Event, Status
 from contract.models import Contract
@@ -22,6 +23,7 @@ class EventViewSet(viewsets.ModelViewSet):
     filter_class = EventFilter
 
     def get_queryset(self):
+        """For support or sales, this returns the events assigned to them"""
         user = self.request.user
         contract = Contract.objects.filter(sales_contact_id=user)
         if user.post == 'SUPPORT':

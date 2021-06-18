@@ -1,3 +1,4 @@
+"""Client model module"""
 from django.db import models
 from contact.models import Contact
 
@@ -18,6 +19,7 @@ class Client(models.Model):
     )
 
     def __str__(self):
-        client = self.first_name + ' ' +\
-            self.last_name + ' ' + self.company_name
+        """Returns first name, last name and company"""
+        client = self.first_name + ', ' +\
+            self.last_name + ', ' + self.company_name
         return client

@@ -1,3 +1,4 @@
+"""Contract permissions module"""
 from rest_framework import permissions
 
 

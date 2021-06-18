@@ -1,3 +1,4 @@
+"""Contact views module"""
 from rest_framework import viewsets, permissions
 from contact.models import Contact
 from contact.serializers import (
@@ -18,6 +19,7 @@ class ContactViewSet(viewsets.ModelViewSet):
     ]
 
     def get_queryset(self):
+        """For sales, this returns the list of support"""
         user = self.request.user
         if user.post == 'COMMERCIAL':
             return Contact.objects.filter(post='SUPPORT')

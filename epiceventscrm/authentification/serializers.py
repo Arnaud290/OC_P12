@@ -1,5 +1,4 @@
 """Logins serialization and account creation module"""
-
 from rest_framework import serializers
 from django.utils import timezone
 from django.contrib.auth.password_validation import validate_password

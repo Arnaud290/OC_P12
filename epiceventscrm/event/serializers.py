@@ -1,14 +1,13 @@
+"""Event serialization module"""
 from rest_framework import serializers
 from contract.models import Contract
 from event.models import Event, Status
 
 
 class EventSerializer(serializers.ModelSerializer):
-
     client_id = serializers.ReadOnlyField(source='client_id.id')
 
     class Meta:
-
         model = Event
         fields = '__all__'
 
@@ -28,7 +27,6 @@ class EventSerializer(serializers.ModelSerializer):
 class EventSupportSerializer(serializers.ModelSerializer):
 
     class Meta:
-
         model = Event
         exclude = ['contract_id', 'support_contact_id', 'client_id']
 
@@ -39,7 +37,6 @@ class EventListSerializer(serializers.ModelSerializer):
     company_name = serializers.ReadOnlyField(source='client_id.company_name')
 
     class Meta:
-
         model = Event
         fields = ['id', 'company_name', 'date_created']
 
@@ -47,6 +44,5 @@ class EventListSerializer(serializers.ModelSerializer):
 class StatusSerializer(serializers.ModelSerializer):
 
     class Meta:
-
         model = Status
         fields = '__all__'

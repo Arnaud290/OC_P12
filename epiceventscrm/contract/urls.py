@@ -1,3 +1,4 @@
+"""Contract url module"""
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 from contract import views

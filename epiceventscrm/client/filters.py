@@ -1,9 +1,10 @@
+"""Search filter module"""
 from django_filters import FilterSet, CharFilter
 from client.models import Client
 
 
 class ClientFilter(FilterSet):
-
+    """Searches can be made by first name, last name or email"""
     last_name = CharFilter(
         field_name='last_name', lookup_expr='icontains'
     )

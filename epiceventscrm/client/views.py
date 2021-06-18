@@ -1,3 +1,4 @@
+"""Views module"""
 from rest_framework import viewsets, permissions
 from client.models import Client
 from event.models import Event
@@ -7,13 +8,16 @@ from client.filters import ClientFilter
 
 
 class ClientViewSet(viewsets.ModelViewSet):
-
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     permission_classes = [permissions.IsAuthenticated, IsCommercialOrReadOnly]
     filter_class = ClientFilter
 
     def get_queryset(self):
+        """
+        For support, returns the customers with whom an event is associated.
+        For sales, returns the associated customers
+        """
         user = self.request.user
         if user.post == 'SUPPORT':
             clients_id = [

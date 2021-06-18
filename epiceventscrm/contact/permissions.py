@@ -1,3 +1,4 @@
+"""Permission contact module"""
 from rest_framework import permissions
 
 

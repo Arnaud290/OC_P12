@@ -1,3 +1,4 @@
+"""Contract Models Module"""
 from django.db import models
 from client.models import Client
 from contact.models import Contact
@@ -33,6 +34,7 @@ class Contract(models.Model):
     )
 
     def __str__(self):
-        contract = str(self.id) + ' ' + self.client_id.company_name + ' ' + \
-            str(self.date_created.strftime('%d %m %Y')) + ' '
+        """Returns the contract id, company and creation date"""
+        contract = str(self.id) + ', ' + self.client_id.company_name + ', ' + \
+            str(self.date_created.strftime('%d %m %Y'))
         return contract

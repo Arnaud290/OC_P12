@@ -1,3 +1,4 @@
+"""Event application module"""
 from django.apps import AppConfig
 
 

@@ -1,14 +1,13 @@
+"""Contract serialisation module"""
 from rest_framework import serializers
 from contract.models import Contract, Status
 from client.models import Client
 
 
 class ContractSerializer(serializers.ModelSerializer):
-
     sales_contact_id = serializers.ReadOnlyField(source='sales_contact_id.id')
 
     class Meta:
-
         model = Contract
         fields = '__all__'
 
@@ -27,7 +26,6 @@ class ContractListSerializer(serializers.ModelSerializer):
     company_name = serializers.ReadOnlyField(source='client_id.company_name')
 
     class Meta:
-
         model = Contract
         fields = ['id', 'company_name', 'date_created']
 
@@ -35,6 +33,5 @@ class ContractListSerializer(serializers.ModelSerializer):
 class StatusSerializer(serializers.ModelSerializer):
 
     class Meta:
-
         model = Status
         fields = '__all__'

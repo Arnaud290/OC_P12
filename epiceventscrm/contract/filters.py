@@ -1,9 +1,13 @@
+"""Filtering module for contract searches"""
 from django_filters import FilterSet, CharFilter, DateTimeFilter, NumberFilter
 from contract.models import Contract
 
 
 class ContractFilter(FilterSet):
-
+    """
+    Possibility of searching by the client's first and last name,
+    the date of creation, the minimum and maximum amount
+    """
     last_name = CharFilter(
         field_name='client_id__last_name', lookup_expr='icontains'
     )
