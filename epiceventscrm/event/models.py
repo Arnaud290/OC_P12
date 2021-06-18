@@ -30,3 +30,9 @@ class Event(models.Model):
         blank=True
     )
     contract_id = models.ForeignKey(Contract, on_delete=models.PROTECT)
+
+    def __str__(self):
+        """Returns the contract id, company and creation date"""
+        event = str(self.id) + ', ' + self.client_id.company_name + ', ' + \
+            str(self.date_created.strftime('%d %m %Y'))
+        return event
