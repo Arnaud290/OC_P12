@@ -32,11 +32,11 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
     create database user : 
 
-        command : psql -c "CREATE USER userdb WITH password 'userdbpassword'"
+        command : psql -c "CREATE USER adminbdd WITH password 'userdbpassword'"
 
     create new database :
 
-        command : createdb epiceventsdb -O userdb    
+        command : createdb epiceventsdb -O adminbdd    
 
 
 ### 2 - Installation of Python3, the virtual environment tool, the package manager and git (on Linux UBUNTU)
@@ -52,7 +52,7 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
     1 - Access to the project directory:
             
-            cd /OC_P12
+            $ cd OC_P12/
 
     2 - Creation of the virtual environment:
             
@@ -66,16 +66,37 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
             (env) $ pip install -r requirements.txt
 
 
-### 6 - Opening the virtual environment and adding modules
-            
+### 6 - Modification of the file settings_example.py
 
-### 4 - Modification of the file literview / literview / settings_example.py
+    (env) $ cd epiceventscrm/epiceventscrm
 
     1 - Rename the settings_example.py file to settings.py
 
-    2 - Modify the variable 'SECRET_KEY' in order to add a security key
-        "django-insecure- (+ 50 random characters with uppercase,
-        lowercase, numbers and special characters) "
+        (env) $ mv settings_exemple.py settings.py
+
+    2 - In the settings.py file:
+
+            modify the variable 'SECRET_KEY' in order to add a security key
+            "django-insecure- (+ 50 random characters with uppercase,
+            lowercase, numbers and special characters)
+
+            in DATABASES :
+            update password
+            'PASSWORD': 'password_adminbdd',
+        
+
+### 7 - Migrate database and restaure dump db
+            
+            (env) $ cd OC_P12/epiceventscrm/
+            (env) $ ./manage.py migrate
+            sudo su
+            su postgres 
+            # cd db_file/
+            # pg_restore --clean --dbname epiceventsdb epiceventsdb.dump
+
+            if you want dump database: 
+
+                pg_dump --format=custom --file epiceventsdb.dump epiceventsdb
 
 
 ## Using the program
@@ -83,26 +104,19 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
 ### 1 - Launch
 
-    1 - activation of the virtual environment in the home directory:
-
-        source env/bin/activate
-
-    2 - access to the softdesk directory:
-
-        cd /softdesk
-
-    3 - Launching the Django server
+    Launching the Django server
 
         ./manage.py runserver
 
+#TODO
 
-### 2 - Using the API
+### 2 - Using the CRM
 
-    In order to test this API, 4 fictitious users are registered with some projects,
+    In order to test this CRM, 5 fictitious users are registered with some projects,
     problems and comments in the "db.sqlite3" database made available in the repository:
 
-        - admin
-        - arnaud
+        - admin > admin user
+        -  >
         - eric
         - claude
 

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'client.apps.ClientConfig',
     'contract.apps.ContractConfig',
     'log_viewer',
+    'middleware.apps.MiddlewareConfig'
 ]
 
 AUTH_USER_MODEL = 'contact.Contact'
