@@ -13,7 +13,10 @@ class ContactRequestMiddleware:
         """
         response = self.get_response(request)
         if str(request.user) == 'AnonymousUser':
-            username = request.POST['username']
+            if request.POST:
+                username = request.POST['username']
+            else:
+                username = 'AnonymousUser'
         else:
             username = request.user.username
         contact_log = ContactLog.objects.create(

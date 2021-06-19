@@ -11,6 +11,7 @@ class CustomEventAdmin(admin.ModelAdmin):
         'date_updated',
         'status_id__status_name'
     )
+    list_display = ['id', 'date_created', 'client_id', 'status_id']
 
 
 class StatusAdmin(admin.ModelAdmin):

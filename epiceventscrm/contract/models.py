@@ -32,9 +32,3 @@ class Contract(models.Model):
         null=True,
         blank=True
     )
-
-    def __str__(self):
-        """Returns the contract id, company and creation date"""
-        contract = str(self.id) + ', ' + self.client_id.company_name + ', ' + \
-            str(self.date_created.strftime('%d %m %Y'))
-        return contract

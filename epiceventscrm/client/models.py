@@ -20,6 +20,6 @@ class Client(models.Model):
 
     def __str__(self):
         """Returns first name, last name and company"""
-        client = self.first_name + ', ' +\
+        client = self.first_name + ' ' +\
             self.last_name + ', ' + self.company_name
         return client
