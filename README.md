@@ -19,10 +19,8 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
     at /etc/postgresql/{postgreSQL_version}/main/postgresql.conf
     delete # before " listen_addresses "
-    update " listen_addresses = '127.0.0.1' " 
+    update " listen_addresses = '127.0.0.1' " (for localhost or another client address)
 
-    at /etc/postgresql/{postgreSQL_version}/main/pg_hba.conf
-    update " host    all             all             127.0.0.1/32            md5 " 
     
     command : systemctl restart postgresql
 
@@ -41,29 +39,34 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
         command : createdb epiceventsdb -O userdb    
 
 
-#TO DO
+### 2 - Installation of Python3, the virtual environment tool, the package manager and git (on Linux UBUNTU)
 
-### 1 - Installation of Python3, the virtual environment tool, the package manager (on Linux UBUNTU)
-
-    $ sudo apt-get install python3 python3-venv python3-pip
+    $ sudo apt-get install python3 python3-venv python3-pip git
 
 
-### 2 - Setting up the virtual environment "env"
+### 3 - Clone project
+
+    git clone https://github.com/Arnaud290/OC_P12.git
+
+### 4 - Setting up the virtual environment "env"
 
     1 - Access to the project directory:
             
-            cd /softdesk example
+            cd /OC_P12
 
     2 - Creation of the virtual environment:
             
             $ python3 -m venv env
 
 
-### 3 - Opening the virtual environment and adding modules
+### 5 - Opening the virtual environment and adding modules
 
             $ source env/bin/activate
             
             (env) $ pip install -r requirements.txt
+
+
+### 6 - Opening the virtual environment and adding modules
             
 
 ### 4 - Modification of the file literview / literview / settings_example.py

@@ -86,12 +86,12 @@ WSGI_APPLICATION = 'epiceventscrm.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'epiceventsdb',
+        'USER': 'adminbdd',
+        'PASSWORD': 'password_adminbdd',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
