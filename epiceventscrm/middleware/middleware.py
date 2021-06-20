@@ -1,4 +1,5 @@
 """Middleware module"""
+from django.utils.datastructures import MultiValueDictKeyError
 from .models import ContactLog
 
 
@@ -14,7 +15,10 @@ class ContactRequestMiddleware:
         response = self.get_response(request)
         if str(request.user) == 'AnonymousUser':
             if request.POST:
-                username = request.POST['username']
+                try:
+                    username = request.POST['username']
+                except MultiValueDictKeyError:
+                    username = 'AnonymousUser'
             else:
                 username = 'AnonymousUser'
         else:

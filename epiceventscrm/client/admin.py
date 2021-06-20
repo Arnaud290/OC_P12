@@ -11,5 +11,7 @@ class CustomClientAdmin(admin.ModelAdmin):
         'date_updated',
     )
 
+    list_display = ['id', 'first_name', 'last_name', 'company_name']
+
 
 admin.site.register(Client, CustomClientAdmin)

@@ -11,7 +11,7 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
 ## Installation
 
-### 1 - Installation of PostgreSQL and packages for psycopg2 driver (on Linux UBUNTU with sudo)
+### 1 - Installation of PostgreSQL and packages for psycopg2 driver (on Linux UBUNTU)
 
     sudo apt install postgresql postgresql-client libpq-dev python3-dev build-essential python3-psycopg2
 
@@ -28,15 +28,15 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
         sudo su - postgres
 
-        # psql -c "ALTER USER postgres WITH password 'newpassword'"
+        $ psql -c "ALTER USER postgres WITH password 'newpassword'"
 
     create database user : 
 
-        # psql -c "CREATE USER adminbdd WITH password 'userdbpassword'"
+        $ psql -c "CREATE USER adminbdd WITH password 'userdbpassword'"
 
     create new database :
 
-        # createdb epiceventsdb -O adminbdd    
+        $ createdb epiceventsdb -O adminbdd    
 
 
 ### 2 - Installation of Python3, the virtual environment tool, the package manager and git (on Linux UBUNTU)
@@ -127,7 +127,8 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
     Access to the admin page :
 
-        Example on a local installation: http://127.0.0.1:8000/admin
+        Example on a local installation:    http://127.0.0.1:8000/admin                 > Admin page
+                                            http://127.0.0.1:8000/admin/log_viewer/     > Console log page
 
         user: admin
         password: P@ssword1
@@ -236,13 +237,48 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
             Allows the password to be changed
             Fields to use: old_password, password, password2
 
+        - POST: http://127.0.0.1:8000/logout/
+
+            Authentication required
+            Allows you to blacklist the TOKEN refresh key to prohibit its use
+            Fields to use: refresh
+            
     CONTACT
 
         - GET: http://127.0.0.1:8000/contact/
 
             Authentication required
             Commercial access:  Provides access to the list of support contacts
+            Support Access:     Not allowed
             Admin access:       Provides access to the list of contacts
+
+        - GET: http://127.0.0.1:8000/contact/{contact_id}/
+
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Returns the contact informations
+
+        - POST http://127.0.0.1:8000/client/
+
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Create a contact with first name, last name, email, mobile, password, password2, is_superuser, is_staff, is_active, post
+
+        - PUT http://127.0.0.1:8000/contact/{contact_id}/
+
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Modify a contact informations, the user must enter all fields. For a partial modification, the PATCH action is available
+
+        - DELETE http://127.0.0.1:8000/client/{client_id}/
+
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Delete the contact object
 
     CLIENT 
 
