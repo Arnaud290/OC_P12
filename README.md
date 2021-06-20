@@ -59,11 +59,19 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
             $ python3 -m venv env
 
 
-### 5 - Opening the virtual environment and adding modules
+### 5 - Opening the virtual environment, adding modules and modify OutstandingToken model
 
             $ source env/bin/activate
             
             (env) $ pip install -r requirements.txt
+
+            Modify OutstandingToken model for delete Contact object
+
+            at env/lib/python3.8/site-packages/rest_framework_simplejwt/token_blacklist/models.py
+
+                class OutstandingToken(models.Model):
+
+                    modify : user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)  
 
 
 ### 6 - Modification of the file settings_example.py
