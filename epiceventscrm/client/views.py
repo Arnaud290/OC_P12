@@ -1,5 +1,7 @@
 """Views module"""
 from rest_framework import viewsets, permissions
+from rest_framework.exceptions import ValidationError
+from django.db import models
 from client.models import Client
 from event.models import Event
 from client.serializers import ClientSerializer, ClientListSerializer
@@ -37,3 +39,12 @@ class ClientViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(sales_contact_id=self.request.user)
+
+    def destroy(self, request, *args, **kwargs):
+        try:
+            instance = self.get_object()
+            instance.delete()
+        except models.deletion.ProtectedError:
+            raise ValidationError(
+                "Un ou plusieurs contrats et événements sont liés à ce client"
+            )

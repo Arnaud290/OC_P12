@@ -1,5 +1,7 @@
 """Event views module"""
 from rest_framework import viewsets, permissions
+from rest_framework.exceptions import ValidationError
+from django.db import models
 from event.models import Event, Status
 from contract.models import Contract
 from event.serializers import (
@@ -52,3 +54,12 @@ class StatusViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated,
         IsAdminOrReadOnly
     ]
+
+    def destroy(self, request, *args, **kwargs):
+        try:
+            instance = self.get_object()
+            instance.delete()
+        except models.deletion.ProtectedError:
+            raise ValidationError(
+                "Un ou plusieurs événements sont liés à ce statut"
+            )

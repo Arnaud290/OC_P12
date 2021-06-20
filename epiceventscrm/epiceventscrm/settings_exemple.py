@@ -59,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middleware.middleware.ContactRequestMiddleware'
 ]
 
 ROOT_URLCONF = 'epiceventscrm.urls'
@@ -125,9 +126,11 @@ TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
+
+DATETIME_FORMAT = 'd-m-Y H:m:s'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -193,8 +196,8 @@ LOGGING = {
     }
 }
 
-LOG_VIEWER_FILES = ['debug.log']
-LOG_VIEWER_FILES_PATTERN = 'debug*'
+LOG_VIEWER_FILES = ['console.log', 'authentification.log']
+LOG_VIEWER_FILES_PATTERN = '*'
 LOG_VIEWER_FILES_DIR = 'log'
 LOG_VIEWER_MAX_READ_LINES = 1000
 LOG_VIEWER_PAGE_LENGTH = 25

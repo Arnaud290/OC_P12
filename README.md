@@ -68,7 +68,7 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
 ### 6 - Modification of the file settings_example.py
 
-    (env) $ cd epiceventscrm/epiceventscrm
+    (env) $ cd OC_P12/epiceventscrm/epiceventscrm/
 
     1 - Rename the settings_example.py file to settings.py
 
@@ -91,12 +91,12 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
             (env) $ ./manage.py migrate
             sudo su
             su postgres 
-            # cd db_file/
+            # cd OC_P12/epiceventscrm/db_file/
             # pg_restore --clean --dbname epiceventsdb epiceventsdb.dump
 
             if you want dump database: 
 
-                pg_dump --format=custom --file epiceventsdb.dump epiceventsdb
+                # pg_dump --format=custom --file epiceventsdb.dump epiceventsdb
 
 
 ## Using the program
@@ -106,54 +106,94 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
     Launching the Django server
 
-        ./manage.py runserver
+    (env) $ cd OC_P12/epiceventscrm/
+    (env) $ ./manage.py runserver
 
-#TODO
 
 ### 2 - Using the CRM
 
     In order to test this CRM, 5 fictitious users are registered with some projects,
     problems and comments in the "db.sqlite3" database made available in the repository:
 
-        - admin > admin user
-        -  >
-        - eric
-        - claude
+        - admin     > Manager user
+
+        - françois  > Commmercial user
+        - marc      > Commercial user
+
+        - sylvain   > Support user
+        - sophie    > Support user 
 
         the password for users: P@ssword1
 
-    Access to the admin page is possible:
+    Access to the admin page :
 
         Example on a local installation: http://127.0.0.1:8000/admin
 
         user: admin
         password: P@ssword1
 
-    This allows full access (read and write) to the database tables.
+        Command for creating an administrator:
 
-    Command for creating an administrator:
+            (env) $ cd OC_P12/epiceventscrm/
+            (env) $ ./manage.py createsuperuser
 
-        ./manage.py createsuperuser
+    Section of the admin page :
 
-    To have an initial database:
+        CLIENT
+            clients
+                > view list
+                > view object
+                > create object
+                > modify object
+                > delete object
 
-        1 - Stop the Django server by performing the combination:
-                
-                 control + c
+        CONTACT
+            Contacts
+                > view list
+                > view object
+                > create object
+                > modify object
+                > delete object
 
-        2 - Delete the "db.sqlite3" file
+        CONTRACT
+            Contracts
+                > view list
+                > view object
+                > create object
+                > modify object
+                > delete object (if no event is associated)
 
-        3 - migrate to the new base
+            Status        
+                > view list
+                > view object
+                > create object
+                > modify object
+                > delete object (if no contract is associated)
 
-                ./manage.py makemigrations => This creates a file in softdesk/projects/migrations
+        EVENT
+            Events
+                > view list
+                > view object
+                > create object
+                > modify object
+                > delete object 
 
-                ./manage.py migrate => Creation of tables in the "db.sqlite" file (created directly)
+            Status        
+                > view list
+                > view object
+                > create object
+                > modify object
+                > delete object (if no event is associated)
+
+        MIDDLEWARE
+            contact logs
+                > view list
               
 ### 3 - Using queries
 
     Several methods exist to perform queries, example:
 
-        - With POSTMAN software (Used for the documentation of this API)
+        - With POSTMAN software (Used for the documentation of this CRM)
 
                 Installation on Linux UBUNTU:
 
@@ -165,140 +205,234 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
                 sudo snap install curl
 
-            Example of the 'GET projects' request
+            Example of the 'GET contract' request
 
-                curl --location --request GET 'http://127.0.0.1:8000/projects' \
-                --header 'Authorization: Bearer "TOKEN 'access' "'
+                curl --location --request GET 'http://127.0.0.1:8000/contract' \
+                --header 'Authorization: Bearer TOKEN_ACCESS'
 
 ### 4 - List of requests
 
-    Detailed documentation is available at: https://documenter.getpostman.com/view/15579831/TzRVg6iY
+    List of requests is available at: https://documenter.getpostman.com/view/15579831/TzeZDRMD
 
-    - POST signup: http://127.0.0.1:8000/signup/
+    LOGIN
 
-        Registration of a user to the API.
-        Fields to use: username, password, password2, first_name, last_name, email
+        - POST: http://127.0.0.1:8000/login/
 
-    - POST: http://127.0.0.1:8000/login/
+            Connection of a user to the API.
+            Fields to use: username, password
+            Return: TOKEN 'access' key (To be used for requests with authentication, valid for 1 hour)
+                    TOKEN 'refresh' key (To be used for refresh and logout requests)
+                    
+        - POST: http://127.0.0.1:8000/login/refresh/
 
-        Connection of a user to the API.
-        Fields to use: username, password
-        Return: TOKEN 'access' key (To be used for requests with authentication, valid for 1 hour)
-                 TOKEN 'refresh' key (To be used for refresh and logout requests)
-                 
-    - POST: http://127.0.0.1:8000/login/refresh/
+            Retrieving another pair of TOKEN keys without reconnecting
+            Fields to use: refresh
+            Return: TOKEN 'access' key (To be used for requests with authentication, valid for 1 hour)
+                    TOKEN 'refresh' key (To be used for refresh and logout requests)
 
-        Retrieving another pair of TOKEN keys without reconnecting
-        Fields to use: refresh
-        Return: TOKEN 'access' key (To be used for requests with authentication, valid for 1 hour)
-                 TOKEN 'refresh' key (To be used for refresh and logout requests)
+        - PUT: http://127.0.0.1:8000/change_password/
 
-    - PUT: http://127.0.0.1:8000/change_password/
+            Authentication required
+            Allows the password to be changed
+            Fields to use: old_password, password, password2
 
-        Authentication required
-        Allows the password to be changed
-        Fields to use: old_password, password, password2
+    CONTACT
 
-    - GET: http://127.0.0.1:8000/users/
+        - GET: http://127.0.0.1:8000/contact/
 
-        Authentication required
-        Provides access to the list of API users
+            Authentication required
+            Commercial access:  Provides access to the list of support contacts
+            Admin access:       Provides access to the list of contacts
 
-    - POST: http://127.0.0.1:8000/logout/
-        Authentication required
-        Allows you to blacklist the TOKEN refresh key to prohibit its use
-        Fields to use: refresh
+    CLIENT 
 
-    - GET: http://127.0.0.1:8000/projects/
+        - GET: http://127.0.0.1:8000/client/
 
-        Authentication required
-        Access to the list of projects to which the user is linked.
+            Authentication required
+            Commercial access:  Returns the list of clients to which the commercial is linked
+            Support Access:     Returns the list of clients to which support has a related event
+            Admin access :      Returns the list of clients
 
-    - POST: http://127.0.0.1:8000/projects/
+        - GET: http://127.0.0.1:8000/client/{client_id}/
 
-        Authentication required
-        Creation of a project
-        Fields to use: title, description, project_type
+            Authentication required
+            Commercial access:  Returns the client informations if the commercial user is linked
+            Support Access:     Returns the client informations if the support user is linked by an event
+            Admin access :      Returns the client informations
 
-    - GET: http://127.0.0.1:8000/projects/{project_id}
+        - POST http://127.0.0.1:8000/client/
 
-        Authentication required, user contributing to the project
-        Access to project details
-    
-    - PUT: http://127.0.0.1:8000/projects/{project_id}
+            Authentication required
+            Commercial access:  Create a client with first name, last name, email, mobile, phone (optional), company name
+            Support Access:     Not allowed
+            Admin access :      Create a client with first name, last name, email, mobile, phone (optional), company name
 
-        Authentication required, user author of the project
-        Modification of the project
-        Fields to use: title, description, project_type
+        - PUT http://127.0.0.1:8000/client/{client_id}/
 
-    - DELETE: http://127.0.0.1:8000/projects/{project_id}
+            Authentication required
+            Commercial access:  Modify a client informations only if the commercial user is linked, the user must enter all fields
+                                For a partial modification, the PATCH action is available
+            Support Access:     Not allowed
+            Admin access :      Modify a client informations, the user must enter all fields. For a partial modification, the PATCH action is available
 
-        Authentication required, user author of the project
-        Deleting the project
+        - DELETE http://127.0.0.1:8000/client/{client_id}/
 
-    - GET: http://127.0.0.1:8000/projects/{project_id}/users/
+            Authentication required
+            Commercial access:  Deletes the client object only if the commercial user is linked and no contracts and events are linked
+            Support Access:     Not allowed
+            Admin access :      Delete the client object only if no contracts and events are linked
+
+    CONTRACT
+
+        - GET: http://127.0.0.1:8000/contract/
+
+            Authentication required
+            Commercial access:  Returns the list of contracts to which the commercial user is linked
+            Support Access:     Not allowed
+            Admin access :      Returns the list of contracts
+
+        - GET: http://127.0.0.1:8000/contract/{contract_id}/
+
+            Authentication required
+            Commercial access:  Returns the contract informations if the commercial user is linked
+            Support Access:     Not allowed
+            Admin access :      Returns the contract informations
+
+        - POST http://127.0.0.1:8000/contract/
+
+            Authentication required
+            Commercial access:  Create a contract with text, amount, status id, client id
+            Support Access:     Not allowed
+            Admin access :      Create a contract with text, amount, status id, client id
         
-        Authentication required, user contributing to the project
-        Access to the list of project contributors
+        - PUT http://127.0.0.1:8000/contract/{contract_id}/
 
-    - POST: http://127.0.0.1:8000/projects/{project_id}/users/
+            Authentication required
+            Commercial access:  Modify a contract informations only if the commercial user is linked, the user must enter all fields
+                                For a partial modification, the PATCH action is available
+            Support Access:     Not allowed
+            Admin access :      Modify a contract informations, the user must enter all fields
+                                For a partial modification, the PATCH action is available
+        
+        - DELETE http://127.0.0.1:8000/contract/{contract_id}/
 
-        Authentication required, user author of the project
-        Adding a contributor to the project
-        Fields to use: user_id, role
+            Authentication required
+            Commercial access:  Deletes the contract object only if the commercial user is linked and no events are linked
+            Support Access:     Not allowed
+            Admin access :      Delete the contract object only if no events are linked and no events are linked
 
-    - DELETE: http://127.0.0.1:8000/projects/{project_id}/users/{user_id}
+    CONTRACT STATUS
 
-        Authentication required, user author of the project
-        Removing a contributor from the project
-     
-    - GET: http://127.0.0.1:8000/projects/{project_id}/issues/
+        - GET: http://127.0.0.1:8000/status_contract/
 
-        Authentication required, user contributing to the project
-        Access to the list of project problems
+            Authentication required
+            Commercial access:  Returns the list of status contracts
+            Support Access:     Not allowed
+            Admin access :      Returns the list of status contracts
 
-    - POST: http://127.0.0.1:8000/projects/{project_id}/issues/
+        - GET: http://127.0.0.1:8000/status_contract/{status_contract_id}
 
-        Authentication required, user contributing to the project
-        Adding a problem to the project
-        Fields to use: title, description, tag, priority, status, assignee_user_id
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Returns the status contract informations
 
-    - PUT: http://127.0.0.1:8000/projects/{project_id}/issues/{issue_id}
+        - POST http://127.0.0.1:8000/status_contract/
 
-        Authentication required, user responsible for posted problem
-        Adding a problem to the project
-        Fields to use: title, description, tag, priority, status, assignee_user_id
-    
-    - DELETE: http://127.0.0.1:8000/projects/{project_id}/issues/{issue_id}
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Create a status contract with status name
 
-        Authentication required, user responsible for posted problem
-        Removing a problem from the project
+        - PUT http://127.0.0.1:8000/status_contract/{status_contract_id}/
 
-    - GET: http://127.0.0.1:8000/projects/{project_id}/issues/{{issue_id}/comments
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Modify a status contract informations, the user must enter all fields
+                                For a partial modification, the PATCH action is available
 
-        Authentication required, user contributing to the project
-        Access to the list of comments on the problem
+        - DELETE http://127.0.0.1:8000/status_contract/{status_contract_id}/
 
-    - POST: http://127.0.0.1:8000/projects/{project_id}/issues/{{issue_id}/comments
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Delete the status contract object only if no contract are linked        
 
-        Authentication required, user contributing to the project
-        Adding a comment to the problem
-        Fields to use: description
+    EVENT
 
-    - GET: http://127.0.0.1:8000/projects/{project_id}/issues/{issue_id}/comments/{comment_id}
+        - GET: http://127.0.0.1:8000/event/
 
-        Authentication required, user contributing to the project
-        Access to the details of the comment to the problem
+            Authentication required
+            Commercial access:  Returns the list of events to which the commercial is linked
+            Support Access:     Returns the list of events to which the support is linked
+            Admin access :      Returns the list of events
 
-    - PUT: http://127.0.0.1:8000/projects/{project_id}/issues/{issue_id}/comments/{comment_id}
+        - GET: http://127.0.0.1:8000/event/{event_id}/
 
-        Authentication required, user commenting
-        Editing a comment to the problem
-        Fields to use: description
+            Authentication required
+            Commercial access:  Returns the event informations if the commercial user is linked
+            Support Access:     Returns the event informations if the support user is linked
+            Admin access :      Returns the event informations
 
-    - DELETE: http://127.0.0.1:8000/projects/{project_id}/issues/{issue_id}/comments/{comment_id}
+        - POST http://127.0.0.1:8000/event/
 
-        Authentication required, user commenting
-        Deleting a comment to the problem
+            Authentication required
+            Commercial access:  Create a event with date, attendees, status id, contract id, support contact id, notes(optional)
+            Support Access:     Not allowed
+            Admin access :      Create a event with date, attendees, status id, contract id, support contact id, notes(optional)
+        
+        - PUT http://127.0.0.1:8000/event/{event_id}/
 
+            Authentication required
+            Commercial access:  Modify a event informations only if the commercial user is linked, the user must enter all fields
+                                For a partial modification, the PATCH action is available
+            Support Access:     Modify a event informations only if the support user is linked, the user must enter all fields
+                                For a partial modification, the PATCH action is available
+            Admin access :      Modify a event informations, the user must enter all fields
+                                For a partial modification, the PATCH action is available
+        
+        - DELETE http://127.0.0.1:8000/contract/{contract_id}/
 
+            Authentication required
+            Commercial access:  Deletes the evnet object only if the commercial user is linked
+            Support Access:     Not allowed
+            Admin access :      Delete the event object only if no events are linked
+
+    EVENT STATUS
+
+        - GET: http://127.0.0.1:8000/status_event/
+
+            Authentication required
+            Commercial access:  Returns the list of status events
+            Support Access:     Returns the list of status events
+            Admin access :      Returns the list of status events
+
+        - GET: http://127.0.0.1:8000/status_event/{status_event_id}
+
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Returns the status event informations
+
+        - POST http://127.0.0.1:8000/status_event/
+
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Create a status event with status name
+
+        - PUT http://127.0.0.1:8000/status_event/{status_event_id}/
+
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Modify a status event informations, the user must enter all fields
+                                For a partial modification, the PATCH action is available
+
+        - DELETE http://127.0.0.1:8000/status_event/{status_event_id}/
+
+            Authentication required
+            Commercial access:  Not allowed
+            Support Access:     Not allowed
+            Admin access :      Delete the status event object only if no event are linked 
