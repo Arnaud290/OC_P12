@@ -8,8 +8,7 @@ class Contact(AbstractUser):
     """Customisation of the User model"""
     post = models.CharField(
         max_length=20,
-        choices=POST_CHOICES,
-        default='ADMIN'
+        choices=POST_CHOICES
     )
     mobile = models.CharField(max_length=20)
 
