@@ -10,13 +10,17 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = '__all__'
+        extra_kwargs = {'support_contact_id': {'required': True}}
 
     def validate(self, data):
         user = self.context.get("request").user
-        contract = [
-            contract for contract in
-            Contract.objects.filter(sales_contact_id=user)
-        ]
+        if user.post == 'COMMERCIAL':
+            contract = [
+                contract for contract in
+                Contract.objects.filter(sales_contact_id=user)
+            ]
+        else:
+            contract = Contract.objects.all()
         if data['contract_id'] not in contract:
             raise serializers.ValidationError("Contract not exist")
         if data['support_contact_id'].post != 'SUPPORT':

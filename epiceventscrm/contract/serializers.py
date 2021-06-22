@@ -13,9 +13,12 @@ class ContractSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         user = self.context.get("request").user
-        client = [
-            client for client in Client.objects.filter(sales_contact_id=user)
-        ]
+        if user.post == 'COMMERCIAL':
+            client = [
+                client for client in Client.objects.filter(sales_contact_id=user)
+            ]
+        else:
+            client = Client.objects.all()
         if data['client_id'] not in client:
             raise serializers.ValidationError("Client not exist")
         return data

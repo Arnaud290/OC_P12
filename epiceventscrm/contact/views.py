@@ -17,6 +17,7 @@ class ContactViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated,
         IsAdminOrCommercialReadOnly
     ]
+    http_method_names = ['get', 'post', 'put', 'delete']
 
     def get_queryset(self):
         """For sales, this returns the list of support"""

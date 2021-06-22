@@ -1,6 +1,7 @@
 """Views module"""
 from rest_framework import viewsets, permissions
 from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
 from django.db import models
 from client.models import Client
 from event.models import Event
@@ -14,11 +15,12 @@ class ClientViewSet(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
     permission_classes = [permissions.IsAuthenticated, IsCommercialOrReadOnly]
     filter_class = ClientFilter
+    http_method_names = ['get', 'post', 'put', 'delete']
 
     def get_queryset(self):
         """
-        For support, returns the customers with whom an event is associated.
-        For sales, returns the associated customers
+        For support, returns the clients with whom an event is associated.
+        For sales, returns the associated clients
         """
         user = self.request.user
         if user.post == 'SUPPORT':
@@ -44,6 +46,7 @@ class ClientViewSet(viewsets.ModelViewSet):
         try:
             instance = self.get_object()
             instance.delete()
+            return Response(status=204)
         except models.deletion.ProtectedError:
             raise ValidationError(
                 "Un ou plusieurs contrats et événements sont liés à ce client"

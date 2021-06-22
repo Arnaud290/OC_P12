@@ -279,7 +279,7 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
             Authentication required
             Commercial access:  Not allowed
             Support Access:     Not allowed
-            Admin access :      Modify a contact informations, the user must enter all fields. For a partial modification, the PATCH action is available
+            Admin access :      Modify a contact informations, the user must enter all fields.
 
         - DELETE http://127.0.0.1:8000/client/{client_id}/
 
@@ -315,9 +315,8 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
             Authentication required
             Commercial access:  Modify a client informations only if the commercial user is linked, the user must enter all fields
-                                For a partial modification, the PATCH action is available
             Support Access:     Not allowed
-            Admin access :      Modify a client informations, the user must enter all fields. For a partial modification, the PATCH action is available
+            Admin access :      Modify a client informations, the user must enter all fields. 
 
         - DELETE http://127.0.0.1:8000/client/{client_id}/
 
@@ -353,10 +352,8 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
             Authentication required
             Commercial access:  Modify a contract informations only if the commercial user is linked, the user must enter all fields
-                                For a partial modification, the PATCH action is available
             Support Access:     Not allowed
             Admin access :      Modify a contract informations, the user must enter all fields
-                                For a partial modification, the PATCH action is available
         
         - DELETE http://127.0.0.1:8000/contract/{contract_id}/
 
@@ -394,7 +391,6 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
             Commercial access:  Not allowed
             Support Access:     Not allowed
             Admin access :      Modify a status contract informations, the user must enter all fields
-                                For a partial modification, the PATCH action is available
 
         - DELETE http://127.0.0.1:8000/status_contract/{status_contract_id}/
 
@@ -430,11 +426,8 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
             Authentication required
             Commercial access:  Modify a event informations only if the commercial user is linked, the user must enter all fields
-                                For a partial modification, the PATCH action is available
             Support Access:     Modify a event informations only if the support user is linked, the user must enter all fields
-                                For a partial modification, the PATCH action is available
             Admin access :      Modify a event informations, the user must enter all fields
-                                For a partial modification, the PATCH action is available
         
         - DELETE http://127.0.0.1:8000/contract/{contract_id}/
 
@@ -472,7 +465,6 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
             Commercial access:  Not allowed
             Support Access:     Not allowed
             Admin access :      Modify a status event informations, the user must enter all fields
-                                For a partial modification, the PATCH action is available
 
         - DELETE http://127.0.0.1:8000/status_event/{status_event_id}/
 

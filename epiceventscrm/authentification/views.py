@@ -45,4 +45,6 @@ class LogoutView(APIView):
             token.blacklist()
             return Response("Déconnecté")
         except Exception:
-            raise ValidationError("Erreur de déconnexion")
+            raise ValidationError(
+                "Utiliser le champ 'refresh_token' et un token valide"
+            )
