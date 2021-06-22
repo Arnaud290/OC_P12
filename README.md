@@ -273,6 +273,7 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
             Commercial access:  Not allowed
             Support Access:     Not allowed
             Admin access :      Create a contact with first name, last name, email, mobile, password, password2, is_superuser, is_staff, is_active, post
+                                post must be 'COMMERCIAL', 'SUPPORT' or 'ADMIN'
 
         - PUT http://127.0.0.1:8000/contact/{contact_id}/
 
