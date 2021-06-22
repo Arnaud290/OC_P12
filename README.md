@@ -97,14 +97,13 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
             
             (env) $ cd OC_P12/epiceventscrm/
             (env) $ ./manage.py migrate
-            sudo su
-            su postgres 
-            # cd OC_P12/epiceventscrm/db_file/
-            # pg_restore --clean --dbname epiceventsdb epiceventsdb.dump
+            sudo su - postgres
+            $ pg_restore --clean --dbname epiceventsdb epiceventsdb.dump
+            $ cd OC_P12/epiceventscrm/db_file/
 
             if you want dump database: 
 
-                # pg_dump --format=custom --file epiceventsdb.dump epiceventsdb
+                $ pg_dump --format=custom --file epiceventsdb.dump epiceventsdb
 
 
 ## Using the program
@@ -272,7 +271,7 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
             Authentication required
             Commercial access:  Not allowed
             Support Access:     Not allowed
-            Admin access :      Create a contact with first name, last name, email, mobile, password, password2, is_superuser, is_staff, is_active, post
+            Admin access :      Create a contact with first name, last name, email, mobile, password, password2, is_active, post
                                 post must be 'COMMERCIAL', 'SUPPORT' or 'ADMIN'
 
         - PUT http://127.0.0.1:8000/contact/{contact_id}/

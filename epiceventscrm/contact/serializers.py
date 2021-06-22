@@ -32,15 +32,11 @@ class ContactSerializer(serializers.ModelSerializer):
             'last_name',
             'post',
             'mobile',
-            'is_superuser',
-            'is_staff',
             'is_active'
         ]
         extra_kwargs = {
             'first_name': {'required': True},
             'last_name': {'required': True},
-            'is_superuser': {'required': True},
-            'is_staff': {'required': True},
             'is_active': {'required': True},
         }
 
@@ -50,14 +46,6 @@ class ContactSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {"password": "Password fields didn't match."}
             )
-        if type(attrs['is_superuser']) != bool:
-            raise serializers.ValidationError(
-                {"is_superuser must be 'True' or 'False'"}
-            )
-        if type(attrs['is_staff']) != bool:
-            raise serializers.ValidationError(
-                {"is_staff must be 'True' or 'False'"}
-            )
         if type(attrs['is_active']) != bool:
             raise serializers.ValidationError(
                 {"is_staff must be 'True' or 'False'"}
@@ -65,6 +53,10 @@ class ContactSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        if validated_data['post'] == 'ADMIN':
+            superuser = True
+        else:
+            superuser = False
         user = Contact.objects.create(
             username=validated_data['username'],
             email=validated_data['email'],
@@ -72,8 +64,8 @@ class ContactSerializer(serializers.ModelSerializer):
             last_name=validated_data['last_name'],
             post=validated_data['post'],
             mobile=validated_data['mobile'],
-            is_superuser=validated_data['is_superuser'],
-            is_staff=validated_data['is_staff'],
+            is_superuser=superuser,
+            is_staff=superuser,
             is_active=validated_data['is_active'],
         )
         user.set_password(validated_data['password'])
@@ -81,14 +73,18 @@ class ContactSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
+        if validated_data['post'] == 'ADMIN':
+            superuser = True
+        else:
+            superuser = False
         instance.username = validated_data['username']
         instance.email = validated_data['email']
         instance.first_name = validated_data['first_name']
         instance.last_name = validated_data['last_name']
         instance.post = validated_data['post']
         instance.mobile = validated_data['mobile']
-        instance.is_superuser = validated_data['is_superuser']
-        instance.is_staff = validated_data['is_staff']
+        instance.is_superuser = superuser
+        instance.is_staff = superuser
         instance.set_password(validated_data['password'])
         instance.is_staff = validated_data['is_active']
         instance.save()
