@@ -38,7 +38,7 @@ class CustomContactAdmin(UserAdmin):
         ),
         (
             'Permissions',
-            {'fields': ('is_superuser', 'is_active')}
+            {'fields': ('is_superuser', 'is_staff', 'is_active')}
         ),
     )
     add_fieldsets = (
