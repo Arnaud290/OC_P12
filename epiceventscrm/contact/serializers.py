@@ -86,7 +86,6 @@ class ContactSerializer(serializers.ModelSerializer):
         instance.is_superuser = superuser
         instance.is_staff = superuser
         instance.set_password(validated_data['password'])
-        instance.is_staff = validated_data['is_active']
         instance.save()
         return instance
 
