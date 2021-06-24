@@ -46,10 +46,6 @@ class ContactSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {"password": "Password fields didn't match."}
             )
-        if type(attrs['is_active']) != bool:
-            raise serializers.ValidationError(
-                {"is_staff must be 'True' or 'False'"}
-            )
         return attrs
 
     def create(self, validated_data):
