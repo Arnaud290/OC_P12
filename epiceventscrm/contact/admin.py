@@ -54,6 +54,7 @@ class CustomContactAdmin(UserAdmin):
                     'password1',
                     'password2',
                     'is_superuser',
+                    'is_staff',
                     'is_active',
                     'post',
                     'mobile'
