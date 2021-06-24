@@ -6,6 +6,10 @@ from contract.models import Contact
 
 
 class ContactSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.data_serializer = dict()
+
     email = serializers.EmailField(
         required=True,
         validators=[UniqueValidator(queryset=Contact.objects.all())]
@@ -46,36 +50,30 @@ class ContactSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {"password": "Password fields didn't match."}
             )
+        self.data_serializer = {
+            'username': attrs['username'],
+            'email': attrs['email'],
+            'first_name': attrs['first_name'],
+            'last_name': attrs['last_name'],
+            'post': attrs['post'],
+            'mobile': attrs['mobile'],
+            'is_superuser': attrs['post'] == 'ADMIN',
+            'is_staff': attrs['post'] == 'ADMIN',
+            'is_active': attrs['is_active'],
+        }
         return attrs
 
     def create(self, validated_data):
-        user = Contact.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            post=validated_data['post'],
-            mobile=validated_data['mobile'],
-            is_superuser=validated_data['post'] == 'ADMIN',
-            is_staff=validated_data['post'] == 'ADMIN',
-            is_active=validated_data['is_active'],
-        )
+        user = Contact.objects.create(**self.data_serializer)
         user.set_password(validated_data['password'])
         user.save()
         return user
 
     def update(self, instance, validated_data):
-        instance.username = validated_data['username']
-        instance.email = validated_data['email']
-        instance.first_name = validated_data['first_name']
-        instance.last_name = validated_data['last_name']
-        instance.post = validated_data['post']
-        instance.mobile = validated_data['mobile']
-        instance.is_superuser = validated_data['post'] == 'ADMIN'
-        instance.is_staff = validated_data['post'] == 'ADMIN'
-        instance.set_password(validated_data['password'])
-        instance.save()
-        return instance
+        Contact.objects.filter(id=instance.id).update(**self.data_serializer)
+        user = Contact.objects.get(id=instance.id)
+        user.set_password(validated_data['password'])
+        return user
 
 
 class ContactretrieveSerializer(serializers.ModelSerializer):
