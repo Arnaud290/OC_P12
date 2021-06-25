@@ -13,6 +13,16 @@ class ClientSerializer(serializers.ModelSerializer):
 
 class ClientListSerializer(serializers.ModelSerializer):
 
+    sales_contact = serializers.ReadOnlyField(
+        source='sales_contact_id.username'
+    )
+
     class Meta:
         model = Client
-        fields = ['id', 'first_name', 'last_name', 'company_name']
+        fields = [
+            'id',
+            'first_name',
+            'last_name',
+            'company_name',
+            'sales_contact'
+        ]

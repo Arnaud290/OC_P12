@@ -39,10 +39,22 @@ class EventListSerializer(serializers.ModelSerializer):
 
     date_created = serializers.DateTimeField(format='%d %m %Y', read_only=True)
     company_name = serializers.ReadOnlyField(source='client_id.company_name')
+    sales_contact = serializers.ReadOnlyField(
+        source='contract_id.sales_contact_id.username'
+    )
+    support_contact = serializers.ReadOnlyField(
+        source='support_contact_id.username'
+    )
 
     class Meta:
         model = Event
-        fields = ['id', 'company_name', 'date_created']
+        fields = [
+            'id',
+            'company_name',
+            'date_created',
+            'sales_contact',
+            'support_contact'
+        ]
 
 
 class StatusSerializer(serializers.ModelSerializer):
