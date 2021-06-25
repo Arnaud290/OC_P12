@@ -26,16 +26,6 @@ class EventViewSet(viewsets.ModelViewSet):
     filter_class = EventFilter
     http_method_names = ['get', 'post', 'put', 'delete']
 
-    def get_queryset(self):
-        """For support or sales, this returns the events assigned to them"""
-        user = self.request.user
-        contract = Contract.objects.filter(sales_contact_id=user)
-        if user.post == 'SUPPORT':
-            return Event.objects.filter(support_contact_id=user)
-        if user.post == 'COMMERCIAL':
-            return Event.objects.filter(contract_id__in=contract)
-        return Event.objects.all()
-
     def get_serializer_class(self):
         if self.action == 'list':
             return EventListSerializer

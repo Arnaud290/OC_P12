@@ -20,13 +20,6 @@ class ContractViewSet(viewsets.ModelViewSet):
     filter_class = ContractFilter
     http_method_names = ['get', 'post', 'put', 'delete']
 
-    def get_queryset(self):
-        """For sales, this returns the contracts assigned to them"""
-        user = self.request.user
-        if user.post == 'COMMERCIAL':
-            return Contract.objects.filter(sales_contact_id=user)
-        return Contract.objects.all()
-
     def get_serializer_class(self):
         if self.action == 'list':
             return ContractListSerializer

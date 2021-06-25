@@ -293,15 +293,15 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
         - GET: http://127.0.0.1:8000/client/
 
             Authentication required
-            Commercial access:  Returns the list of clients to which the commercial is linked
-            Support Access:     Returns the list of clients to which support has a related event
+            Commercial access:  Returns the list of clients 
+            Support Access:     Returns the list of clients 
             Admin access :      Returns the list of clients
 
         - GET: http://127.0.0.1:8000/client/{client_id}/
 
             Authentication required
-            Commercial access:  Returns the client informations if the commercial user is linked
-            Support Access:     Returns the client informations if the support user is linked by an event
+            Commercial access:  Returns the client informations only if the commercial user is linked
+            Support Access:     Returns the client informations only if the support user is linked 
             Admin access :      Returns the client informations
 
         - POST http://127.0.0.1:8000/client/
@@ -330,14 +330,14 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
         - GET: http://127.0.0.1:8000/contract/
 
             Authentication required
-            Commercial access:  Returns the list of contracts to which the commercial user is linked
-            Support Access:     Not allowed
+            Commercial access:  Returns the list of contracts
+            Support Access:     Returns the list of contracts
             Admin access :      Returns the list of contracts
 
         - GET: http://127.0.0.1:8000/contract/{contract_id}/
 
             Authentication required
-            Commercial access:  Returns the contract informations if the commercial user is linked
+            Commercial access:  Returns the contract informations only if the commercial user is linked
             Support Access:     Not allowed
             Admin access :      Returns the contract informations
 
@@ -368,7 +368,7 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
             Authentication required
             Commercial access:  Returns the list of status contracts
-            Support Access:     Not allowed
+            Support Access:     Returns the list of status contracts
             Admin access :      Returns the list of status contracts
 
         - GET: http://127.0.0.1:8000/status_contract/{status_contract_id}
@@ -404,15 +404,15 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
         - GET: http://127.0.0.1:8000/event/
 
             Authentication required
-            Commercial access:  Returns the list of events to which the commercial is linked
-            Support Access:     Returns the list of events to which the support is linked
+            Commercial access:  Returns the list of events
+            Support Access:     Returns the list of events
             Admin access :      Returns the list of events
 
         - GET: http://127.0.0.1:8000/event/{event_id}/
 
             Authentication required
-            Commercial access:  Returns the event informations if the commercial user is linked
-            Support Access:     Returns the event informations if the support user is linked
+            Commercial access:  Returns the event informations only if the commercial user is linked
+            Support Access:     Returns the event informations only if the support user is linked
             Admin access :      Returns the event informations
 
         - POST http://127.0.0.1:8000/event/
@@ -432,7 +432,7 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
         - DELETE http://127.0.0.1:8000/contract/{contract_id}/
 
             Authentication required
-            Commercial access:  Deletes the evnet object only if the commercial user is linked
+            Commercial access:  Deletes the event object only if the commercial user is linked
             Support Access:     Not allowed
             Admin access :      Delete the event object only if no events are linked
 
