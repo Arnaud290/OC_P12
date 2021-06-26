@@ -12,12 +12,10 @@ class IsAdminOrCommercialOrSupport(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         user = request.user
         if request.method in permissions.SAFE_METHODS:
-            if view.action != 'list':
-                if user.post == 'COMMERCIAL':
-                    return obj.contract_id.sales_contact_id == user
-                if user.post == 'SUPPORT':
-                    return obj.support_contact_id == user
-            return True
+            if user.post == 'COMMERCIAL':
+                return obj.contract_id.sales_contact_id == user
+            if user.post == 'SUPPORT':
+                return obj.support_contact_id == user
         if user.post == 'ADMIN':
             return True
         if user.post == 'COMMERCIAL':

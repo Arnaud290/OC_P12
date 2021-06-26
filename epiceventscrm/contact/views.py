@@ -6,7 +6,7 @@ from contact.serializers import (
     ContactSerializer,
     ContactretrieveSerializer
 )
-from contract.permissions import IsAdminOrCommercialReadOnly
+from contact.permissions import IsAdminOrCommercialReadOnly
 
 
 class ContactViewSet(viewsets.ModelViewSet):

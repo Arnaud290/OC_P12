@@ -5,14 +5,18 @@ from rest_framework.response import Response
 from django.db import models
 from client.models import Client
 from client.serializers import ClientSerializer, ClientListSerializer
-from client.permissions import IsCommercialOrReadOnly
+from client.permissions import IsCommercialOrReadOnly, IscommercialOrAdmin
 from client.filters import ClientFilter
 
 
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
-    permission_classes = [permissions.IsAuthenticated, IsCommercialOrReadOnly]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsCommercialOrReadOnly,
+        IscommercialOrAdmin
+    ]
     filter_class = ClientFilter
     http_method_names = ['get', 'post', 'put', 'delete']
 

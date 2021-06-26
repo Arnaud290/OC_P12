@@ -9,14 +9,22 @@ from contract.serializers import (
     ContractSerializer,
     StatusSerializer
 )
-from contract.permissions import IsAdminOrCommercial, IsAdminOrCommercialReadOnly
+from contract.permissions import (
+    IsAdminOrCommercial,
+    IsAdminOrCommercialCreate,
+    IsAdminOrReadOnly
+)
 from contract.filters import ContractFilter
 
 
 class ContractViewSet(viewsets.ModelViewSet):
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
-    permission_classes = [permissions.IsAuthenticated, IsAdminOrCommercial]
+    permission_classes = [
+        permissions.IsAuthenticated,
+        IsAdminOrCommercial,
+        IsAdminOrCommercialCreate
+    ]
     filter_class = ContractFilter
     http_method_names = ['get', 'post', 'put', 'delete']
 
@@ -44,7 +52,7 @@ class StatusViewSet(viewsets.ModelViewSet):
     serializer_class = StatusSerializer
     permission_classes = [
         permissions.IsAuthenticated,
-        IsAdminOrCommercialReadOnly
+        IsAdminOrReadOnly
     ]
     http_method_names = ['get', 'post', 'put', 'delete']
 

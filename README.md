@@ -338,7 +338,7 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
 
             Authentication required
             Commercial access:  Returns the contract informations only if the commercial user is linked
-            Support Access:     Not allowed
+            Support Access:     Returns the contract informations only if the support user is linked
             Admin access :      Returns the contract informations
 
         - POST http://127.0.0.1:8000/contract/
