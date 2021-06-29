@@ -1,6 +1,7 @@
 """Client model module"""
 from django.db import models
 from contact.models import Contact
+from client.models_config import STATUS
 
 
 class Client(models.Model):
@@ -16,6 +17,11 @@ class Client(models.Model):
         Contact,
         on_delete=models.SET_NULL,
         null=True
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS,
+        default='PROSPECT'
     )
 
     def __str__(self):

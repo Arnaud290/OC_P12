@@ -307,9 +307,9 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
         - POST http://127.0.0.1:8000/client/
 
             Authentication required
-            Commercial access:  Create a client with first name, last name, email, mobile, phone (optional), company name
+            Commercial access:  Create a client with first name, last name, email, mobile, phone (optional), company name, status must be 'PROSPECT' or 'CLIENT'
             Support Access:     Not allowed
-            Admin access :      Create a client with first name, last name, email, mobile, phone (optional), company name
+            Admin access :      Create a client with first name, last name, email, mobile, phone (optional), company name, status must be 'PROSPECT' or 'CLIENT'
 
         - PUT http://127.0.0.1:8000/client/{client_id}/
 
@@ -344,9 +344,9 @@ Create a CRM (Customer Relationship Management) API with Django REST Framwork an
         - POST http://127.0.0.1:8000/contract/
 
             Authentication required
-            Commercial access:  Create a contract with text, amount, status id, client id
+            Commercial access:  Create a contract with text, amount, status id, client id. Client status must be 'CLIENT'
             Support Access:     Not allowed
-            Admin access :      Create a contract with text, amount, status id, client id
+            Admin access :      Create a contract with text, amount, status id, client id. Client status must be 'CLIENT'
         
         - PUT http://127.0.0.1:8000/contract/{contract_id}/
 

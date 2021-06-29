@@ -23,6 +23,8 @@ class ContractSerializer(serializers.ModelSerializer):
             client = Client.objects.all()
         if data['client_id'] not in client:
             raise serializers.ValidationError("Client not exist")
+        if data['client_id'].status != 'CLIENT':
+            raise serializers.ValidationError("client status is not 'CLIENT'")
         return data
 
 

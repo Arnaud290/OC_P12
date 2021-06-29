@@ -24,5 +24,6 @@ class ClientListSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'company_name',
-            'sales_contact'
+            'sales_contact',
+            'status'
         ]
