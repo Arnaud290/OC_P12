@@ -9,9 +9,10 @@ class CustomClientAdmin(admin.ModelAdmin):
     list_filter = (
         'date_created',
         'date_updated',
+        'status'
     )
 
-    list_display = ['id', 'first_name', 'last_name', 'company_name']
+    list_display = ['id', 'first_name', 'last_name', 'company_name', 'status']
 
 
 admin.site.register(Client, CustomClientAdmin)
